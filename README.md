@@ -1,5 +1,3 @@
-# senior-capstone-project
-
 # Project Name: E-Commerce Sales Forecasting & Revenue Analysis
 
 ## Project Overview
