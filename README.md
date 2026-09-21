@@ -28,3 +28,8 @@ pip install -r requirements.txt
 Open the project in VS Code and navigate to the `notebooks/` directory.
 
 Open the project notebooks and run the cells in order.
+
+## Project Progress I (Unit 4 - Assignment 3)
+- **Notebook**: `notebooks/02_data_cleaning_and_eda.ipynb`
+- **Data Cleaning**: Handled missing values, standardized country codes, and resolved cancellation outliers (£77k & £168k) using quantity matching.
+- **Exploratory Data Analysis**: Analyzed product revenue distributions, top revenue drivers, seasonal trends, and weekly revenue lag relationships.
