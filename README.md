@@ -33,3 +33,10 @@ Open the project notebooks and run the cells in order.
 - **Notebook**: `notebooks/02_data_cleaning_and_eda.ipynb`
 - **Data Cleaning**: Handled missing values, standardized country codes, and resolved cancellation outliers (£77k & £168k) using quantity matching.
 - **Exploratory Data Analysis**: Analyzed product revenue distributions, top revenue drivers, seasonal trends, and weekly revenue lag relationships.
+
+## Project Progress II (Unit 5 - Assignment 4)
+- **Notebook**: notebooks/03_baseline_model.ipynb
+- **Data Cleaning**: Automated the cleaning process, standardized country codes, and removed fees and canceled orders.
+- **Weekly Analysis**: Grouped transactions by week and confirmed that the £0 period in early January was a holiday closure, not missing data. Created two versions of the data: one keeping £0 and one using interpolation.
+- **Modeling**: Used an 80/20 chronological train/test split. Compared a 1-week baseline with simple linear regression using MAE, RMSE, and R².
+- **Key Finding**: The baseline performed better, with an MAE of £62,939.95 compared with £91,790.05 and £93,910.00 for the linear models. The baseline followed changes in sales more closely, while the linear models stayed mostly flat and missed the large Q4 holiday increase above £350,000.
