@@ -8,7 +8,9 @@ The problem I plan to address is whether historical e-commerce data can be used 
 
 * **Source:** Sourced from [Kaggle](https://www.kaggle.com/datasets/carrie1/ecommerce-data), originally from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/352/online+retail).
 * **Description:** The dataset contains actual transaction records from a UK-based online retailer. It contains 541,909 transaction records and 8 variables: `InvoiceNo`, `StockCode`, `Description`, `Quantity`, `InvoiceDate`, `UnitPrice`, `CustomerID`, and `Country`. Additionally, the dataset contains transactions from December 2010 through December 2011.
-* **Storage:** Raw dataset is maintained locally at `data/raw/E-commerce_data.csv`.
+* **Storage & Data Access:** The dataset is not stored on GitHub due to file size. To run this project locally:
+  1. Download the data from [Kaggle](https://www.kaggle.com/datasets/carrie1/ecommerce-data).
+  2. Put the downloaded file in `data/raw/` and name it `E-commerce_data.csv`.
 
 ## Environment Setup
 
