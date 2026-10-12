@@ -50,7 +50,7 @@ Open the project notebooks and run the cells in order.
 - **Modeling**: Tested both versions of the data, including the £0 closure week and the interpolated version.
 - **Key Finding**: The baseline performed best, with an MAE of £59,202.27 compared with £61,802.95 for Linear Regression and £61,802.99 for Ridge Regression. The regression models had negative R^2 values and missed the large mid-November sales increase above £350,000.
 
-## Project Draft
+## Project Draft (Unit 7)
 - **Notebook**: `notebooks/05_draft_model_refinement_and_analysis.ipynb`
 - **Feature Engineering**: Used prior week revenue, revenue from two weeks prior, prior week orders, and 4 week rolling revenue. Also tested calendar features, including week of year and holiday season.
 - **Evaluation**: Used an 80/20 chronological split with 39 training weeks and 10 testing weeks. Compared the naive baseline, Linear Regression, Ridge Regression, and a weighted blend using MAE, RMSE, and R².
