@@ -49,3 +49,17 @@ Open the project notebooks and run the cells in order.
 - **Evaluation**: Used an 80/20 chronological train/test split with 39 training weeks and 10 testing weeks. Compared the 1-week baseline with Multiple Linear Regression and Ridge Regression using MAE, RMSE, and R^2.
 - **Modeling**: Tested both versions of the data, including the £0 closure week and the interpolated version.
 - **Key Finding**: The baseline performed best, with an MAE of £59,202.27 compared with £61,802.95 for Linear Regression and £61,802.99 for Ridge Regression. The regression models had negative R^2 values and missed the large mid-November sales increase above £350,000.
+
+## Project Draft
+- **Notebook**: `notebooks/05_draft_model_refinement_and_analysis.ipynb`
+- **Feature Engineering**: Used prior week revenue, revenue from two weeks prior, prior week orders, and 4 week rolling revenue. Also tested calendar features, including week of year and holiday season.
+- **Evaluation**: Used an 80/20 chronological split with 39 training weeks and 10 testing weeks. Compared the naive baseline, Linear Regression, Ridge Regression, and a weighted blend using MAE, RMSE, and R².
+- **Modeling**: Tested linear models with and without calendar features, then blended naive baseline predictions (35%) with Random Forest predictions (65%).
+- **Key Finding**: The final blend performed best, with an MAE of £55,670.16 and RMSE of £63,582.15, improving on the naive baseline MAE of £59,202.27. Adding calendar features increased prediction errors, likely because the dataset contained only one year of data.
+- **Visualizations**: Created a chart of the top 10 products by revenue and a comparison of actual versus predicted weekly revenue across the 10 week test period.
+
+  ![Top 10 Products by Revenue](images/top_10_products.png)
+
+  ![Actual vs Predicted Weekly Revenue](images/actual_vs_blend.png)
+
+- **Limitations and Future Improvements**: The dataset covers only one year, limiting the model's ability to capture seasonal patterns. Before the final submission, I plan to tune Random Forest hyperparameters, explore prediction ranges, and investigate additional data to improve forecast accuracy.
