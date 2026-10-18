@@ -1,65 +1,66 @@
-# Project Name: E-Commerce Sales Forecasting & Revenue Analysis
+# E-Commerce Sales Forecasting & Revenue Analysis
 
-## Project Overview
+This project evaluates whether historical sales data and weekly order patterns can reliably forecast future weekly revenue for an online retailer.
 
-The problem I plan to address is whether historical e-commerce data can be used to predict future sales revenue. I plan to use an e-commerce transaction dataset to analyze historical sales trends and develop a machine learning model to forecast future sales revenue. Additionally, I will perform a secondary analysis to examine which products contribute most to revenue. This analysis could be useful to business executives, financial analysts, and business and data analysts. Executives could use the sales forecast to support strategic decisions about budgeting resources. Financial analysts could use sales forecasts and historical revenue trends to support financial planning, and business and data analysts could use the results to identify product and seasonal trends and recommend strategies for effective decision-making.
+## Problem Statement
 
-## Data Source
+The goal of this project is to determine whether past revenue and order counts can predict future weekly sales more accurately than a simple baseline forecast. 
 
-* **Source:** Sourced from [Kaggle](https://www.kaggle.com/datasets/carrie1/ecommerce-data), originally from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/352/online+retail).
-* **Description:** The dataset contains actual transaction records from a UK-based online retailer. It contains 541,909 transaction records and 8 variables: `InvoiceNo`, `StockCode`, `Description`, `Quantity`, `InvoiceDate`, `UnitPrice`, `CustomerID`, and `Country`. Additionally, the dataset contains transactions from December 2010 through December 2011.
-* **Storage & Data Access:** The dataset is not stored on GitHub due to file size. To run this project locally:
-  1. Download the data from [Kaggle](https://www.kaggle.com/datasets/carrie1/ecommerce-data).
-  2. Put the downloaded file in `data/raw/` and name it `E-commerce_data.csv`.
+Accurate forecasts help businesses plan budgets, resources, and inventory. This project tests whether one year of past sales data can predict future revenue.
 
-## Environment Setup
+## Data
 
-Clone the repository and install required dependencies:
+The dataset contains 541,909 transactions from a UK-based online retailer between December 2010 and December 2011, sourced from [Kaggle](https://www.kaggle.com/datasets/carrie1/ecommerce-data) and originally from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/352/online+retail).
 
-```bash
-# Clone the repository
-git clone https://github.com/walji123/senior-capstone-project.git
-cd senior-capstone-project
+Key data preparation steps included:
+- Removing non-product administrative charges and handling missing item descriptions.
+- Standardizing country names (e.g., converting RSA to South Africa and EIRE to Ireland).
+- Identifying and removing canceled transactions, including large cancellations of £77k and £168k, by comparing transaction quantities.
+- Aggregating individual transactions into weekly revenue totals and weekly order counts.
+- Identifying a week of £0 revenue in early January as an annual holiday closure rather than missing data, and using linear interpolation to resolve it.
 
-# Install required Python packages
-pip install -r requirements.txt
-```
+## Methodology
 
-## Running the Notebooks
+The data was split chronologically, using the first 39 weeks for training and the final 10 weeks for evaluation.
 
-Open the project in VS Code and navigate to the `notebooks/` directory.
+Four core features were engineered from historical sales:
+- Previous week revenue (Lag 1)
+- Revenue from two weeks earlier (Lag 2)
+- Previous week order count (Lag 1 Orders)
+- A 4-week rolling average of revenue
 
-Open the project notebooks and run the cells in order.
+Calendar features were also tested but removed because one year of data was not enough to learn reliable seasonal patterns.
 
-## Project Progress 0 (Unit 4 - Assignment 3)
-- **Notebook**: `notebooks/02_data_cleaning_and_eda.ipynb`
-- **Data Cleaning**: Handled missing values, standardized country codes, and resolved cancellation outliers (£77k & £168k) using quantity matching.
-- **Exploratory Data Analysis**: Analyzed product revenue distributions, top revenue drivers, seasonal trends, and weekly revenue lag relationships.
+I evaluated several model configurations:
+- **Naive Baseline:** Predicting next week's revenue using the prior week's actual revenue.
+- **Mean Benchmarks:** Comparing predictions against the historical training mean and the evaluation set mean.
+- **Linear and Ridge Regression:** Testing linear relationships between past activity and sales.
+- **Random Forest:** Testing constrained settings (depth 2 to 6, leaf samples) to prevent overfitting on the 39 training weeks.
+- **Blended Model:** Combining 35% Naive baseline predictions with 65% Random Forest predictions.
 
-## Project Progress I (Unit 5 - Assignment 4)
-- **Notebook**: notebooks/03_baseline_model.ipynb
-- **Data Cleaning**: Automated the cleaning process, standardized country codes, and removed fees and canceled orders.
-- **Weekly Analysis**: Grouped transactions by week and confirmed that the £0 period in early January was a holiday closure, not missing data. Created two versions of the data: one keeping £0 and one using interpolation.
-- **Modeling**: Used an 80/20 chronological train/test split. Compared a 1-week baseline with simple linear regression using MAE, RMSE, and R².
-- **Key Finding**: The baseline performed better, with an MAE of £62,939.95 compared with £91,790.05 and £93,910.00 for the linear models. The baseline followed changes in sales more closely, while the linear models stayed mostly flat and missed the large Q4 holiday increase above £350,000.
+## Results
 
-## Project Progress II (Unit 6 - Assignment 5)
-- **Notebook**: notebooks/04_model_evaluation_and_comparison.ipynb
-- **Feature Engineering**: Added prior week revenue, revenue from two weeks prior, prior week orders, and 4-week rolling revenue.
-- **Evaluation**: Used an 80/20 chronological train/test split with 39 training weeks and 10 testing weeks. Compared the 1-week baseline with Multiple Linear Regression and Ridge Regression using MAE, RMSE, and R^2.
-- **Modeling**: Tested both versions of the data, including the £0 closure week and the interpolated version.
-- **Key Finding**: The baseline performed best, with an MAE of £59,202.27 compared with £61,802.95 for Linear Regression and £61,802.99 for Ridge Regression. The regression models had negative R^2 values and missed the large mid-November sales increase above £350,000.
+Models were evaluated across Mean Absolute Error (MAE), Root Mean Squared Error (RMSE), and R²:
 
-## Project Draft
-- **Notebook**: `notebooks/05_draft_model_refinement_and_analysis.ipynb`
-- **Feature Engineering**: Used prior week revenue, revenue from two weeks prior, prior week orders, and 4 week rolling revenue. Also tested calendar features, including week of year and holiday season.
-- **Evaluation**: Used an 80/20 chronological split with 39 training weeks and 10 testing weeks. Compared the naive baseline, Linear Regression, Ridge Regression, and a weighted blend using MAE, RMSE, and R².
-- **Modeling**: Tested linear models with and without calendar features, then blended naive baseline predictions (35%) with Random Forest predictions (65%).
-- **Key Finding**: The final blend performed best, with an MAE of £55,670.16 and RMSE of £63,582.15, improving on the naive baseline MAE of £59,202.27. Adding calendar features increased prediction errors, likely because the dataset contained only one year of data.
-- **Visualizations**: Created a chart of the top 10 products by revenue and a comparison of actual versus predicted weekly revenue across the 10 week test period.
+| Model | MAE | RMSE | R² |
+| :--- | :--- | :--- | :--- |
+| Evaluation Mean Benchmark | £49,885.28 | £58,426.76 | 0.0000 |
+| Training Mean Baseline | £130,134.50 | £156,041.97 | -6.1597 |
+| Naive Baseline | £59,202.27 | £69,076.30 | -0.3727 |
+| Linear Regression | £61,802.95 | £71,245.10 | -0.4612 |
+| Random Forest | £61,613.22 | £66,823.84 | -0.0705 |
+| **Blended Model (35% Naive + 65% RF)** | **£55,644.72** | **£63,048.49** | **-0.4435** |
 
-  ![Top 10 Products by Revenue](images/top_10_products.png)
+![Top 10 Products by Revenue](images/top_10_products.png)
 
-  ![Actual vs Predicted Weekly Revenue](images/actual_vs_blend.png)
+![Actual vs Predicted Weekly Revenue](images/actual_vs_blend.png)
 
-- **Limitations and Future Improvements**: The dataset covers only one year, limiting the model's ability to capture seasonal patterns. Before the final submission, I plan to tune Random Forest hyperparameters, explore prediction ranges, and investigate additional data to improve forecast accuracy.
+The blended model performed best among the trained models, reducing the MAE from £59,202 to approximately £55,645. 
+
+All models had negative R² values. Over 80% of prediction error came from the final three weeks of November, when weekly revenue rose above £300,000 and reached £370,000. Since the training data did not include a previous holiday season, the models struggled to predict these sales peaks.
+
+## Limitations
+
+- **Limited Data**: One year of data is not enough to learn annual sales patterns or predict holiday sales peaks reliably.
+- **Holiday Sales**: The models perform better during normal sales periods than during sudden increases in holiday revenue.
+- **Future Improvements**: Use multiple years of data, include promotional dates, and forecast sales by product category.
