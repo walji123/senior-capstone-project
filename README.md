@@ -40,16 +40,16 @@ I evaluated several model configurations:
 
 ## Results
 
-Models were evaluated across Mean Absolute Error (MAE), Root Mean Squared Error (RMSE), and R²:
+Models were evaluated across Mean Absolute Error (MAE), Root Mean Squared Error (RMSE), and R^2:
 
-| Model | MAE | RMSE | R² |
-| :--- | :--- | :--- | :--- |
-| Evaluation Mean Benchmark | £49,885.28 | £58,426.76 | 0.0000 |
-| Training Mean Baseline | £130,134.50 | £156,041.97 | -6.1597 |
-| Naive Baseline | £59,202.27 | £69,076.30 | -0.3727 |
-| Linear Regression | £61,802.95 | £71,245.10 | -0.4612 |
-| Random Forest | £61,613.22 | £66,823.84 | -0.0705 |
-| **Blended Model (35% Naive + 65% RF)** | **£55,644.72** | **£63,048.49** | **-0.4435** |
+| Model | Features | MAE | RMSE | R^2 |
+| :--- | :--- | :--- | :--- | :--- |
+| Naive Baseline | Prior Week | £59,202.27 | £69,075.38 | -0.7327 |
+| Linear Regression | Baseline | £61,802.95 | £71,983.25 | -0.8816 |
+| Ridge Regression | Baseline | £61,802.99 | £71,983.28 | -0.8816 |
+| Linear Regression | Baseline + Calendar | £109,747.60 | £125,209.22 | -4.6930 |
+| Ridge Regression | Baseline + Calendar | £109,727.63 | £125,183.77 | -4.6907 |
+| **Final Blend (35% Naive + 65% RF)** | **Baseline** | **£55,670.16** | **£63,582.15** | **-0.4680** |
 
 ![Top 10 Products by Revenue](images/top_10_products.png)
 
@@ -57,7 +57,7 @@ Models were evaluated across Mean Absolute Error (MAE), Root Mean Squared Error 
 
 The blended model performed best among the trained models, reducing the MAE from £59,202 to approximately £55,645. 
 
-All models had negative R² values. Over 80% of prediction error came from the final three weeks of November, when weekly revenue rose above £300,000 and reached £370,000. Since the training data did not include a previous holiday season, the models struggled to predict these sales peaks.
+All models had negative R^2 values. Over 80% of prediction error came from the final three weeks of November, when weekly revenue rose above £300,000 and reached £370,000. Since the training data did not include a previous holiday season, the models struggled to predict these sales peaks.
 
 ## Limitations
 
