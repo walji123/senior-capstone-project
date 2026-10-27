@@ -2,10 +2,6 @@
 
 This project evaluates whether historical sales data and weekly order patterns can reliably forecast future weekly revenue for an online retailer.
 
-## Note on Project Visualizations
-
-The Jupyter notebooks in this repository generate several visualizations during exploratory analysis and iterative modeling. Some of these charts are duplicate exports (such as re-generating the top products chart in later notebooks) or intermediate evaluation plots from earlier model drafts. To maintain a concise and focused report, this README displays the 6 unique figures that represent the core exploratory and modeling findings. All intermediate and diagnostic plots remain accessible and documented within their respective notebooks.
-
 ## Problem Statement
 
 The goal of this project is to determine whether past revenue and order counts can predict future weekly sales more accurately than a simple baseline forecast.
@@ -31,7 +27,7 @@ Figure 1: Weekly sales over time showing steady revenue for most of the year, fo
 
 Figure 2: Distribution of weekly revenue showing typical sales between £130,000 and £210,000, with extreme peak weeks above £350,000.
 
-![Current Week vs Previous Week Revenue](images/lag_1_revenue_autocorrelation.png)
+![Current Week vs Previous Week Revenue](images/lag_1_revenue_autocorrelation.png?v=2)
 
 Figure 3: Current week revenue plotted against previous week revenue, showing a positive relationship between consecutive weeks.
 
