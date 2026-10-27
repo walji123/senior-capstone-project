@@ -10,6 +10,8 @@ Accurate forecasts help businesses plan budgets, resources, and inventory. This 
 
 ## Data
 
+Dataset: [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/352/online+retail) and on [Kaggle](https://www.kaggle.com/datasets/carrie1/ecommerce-data).
+
 The dataset contains 541,909 transactions from a UK-based online retailer between December 2010 and December 2011, sourced from Kaggle and originally from the UCI Machine Learning Repository.
 
 Key data preparation steps included:
