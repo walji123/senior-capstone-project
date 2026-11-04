@@ -2,7 +2,7 @@
 
 This project evaluates whether historical sales data and weekly order patterns can reliably forecast future weekly revenue for an online retailer.
 
-## Problem Statement
+## Project Overview
 
 The goal of this project is to determine whether past revenue and order counts can predict future weekly sales more accurately than a simple baseline forecast.
 
